@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ultimate Bodyweight Workout Generator</title>
+  <style>
+    body { 
+      font-family: 'Arial', sans-serif; 
+      padding: 20px; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .control-group {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button { 
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+    .output {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .workout-section {
+      margin-bottom: 25px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #feca57;
+    }
+    .exercise-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border-left: 3px solid #ff6b6b;
+    }
+    .exercise-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #feca57;
+      margin-bottom: 5px;
+    }
+    .exercise-details {
+      font-size: 0.95em;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+    .difficulty {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .diff-1 { background: #2ecc71; }
+    .diff-2 { background: #f39c12; }
+    .diff-3 { background: #e74c3c; }
+    .diff-4 { background: #8e44ad; }
+    .tips {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border-left: 4px solid #3498db;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ultimate Bodyweight Workout Generator</h1>
+    <p class="subtitle">Train Like Ancient Warriors</p>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="category">Workout Focus:</label>
+        <select id="category">
+          <option value="full">Full Body Workout</option>
+          <option value="push">Push (Chest, Shoulders, Triceps)</option>
+          <option value="pull">Pull (Back, Biceps)</option>
+          <option value="legs">Legs & Glutes</option>
+          <option value="core">Core & Abs</option>
+          <option value="cardio">High Intensity Cardio</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="difficulty">Fitness Level:</label>
+        <select id="difficulty">
+          <option value="1">Basic (Beginner)</option>
+          <option value="2">1st Class (Intermediate)</option>
+          <option value="3">Master (Advanced)</option>
+          <option value="4">Chief (Elite)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="duration">Workout Duration:</label>
+        <select id="duration">
+          <option value="15">Quick (15 minutes)</option>
+          <option value="20">Standard (20 minutes)</option>
+          <option value="30">Extended (30 minutes)</option>
+          <option value="45">Marathon (45 minutes)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="equipment">Available Equipment:</label>
+        <select id="equipment">
+          <option value="none">Just Your Body</option>
+          <option value="basic">Basic (Towel, Door)</option>
+          <option value="household">Household Items</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="generateWorkout()">Generate Ancient Body Workout</button>
+
+    <div id="output"></div>
+  </div>
+
+  <script>
+    const exercises = {
+      push: {
+        1: [
+          { name: "Wall Push Ups", reps: "10-15", description: "Hands against wall, lean in and push back", muscles: "Chest, Shoulders, Triceps" },
+          { name: "Incline Push Ups", reps: "8-12", description: "Hands elevated on chair/couch", muscles: "Chest, Shoulders, Triceps" },
+          { name: "Classic Push Ups", reps: "5-10", description: "Standard push up with perfect form", muscles: "Chest, Shoulders, Triceps, Core" },
+          { name: "Bear Walk", reps: "30 seconds", description: "Crawl on hands and feet", muscles: "Shoulders, Core" },
+          { name: "Rocking Chairs", reps: "8-12", description: "Push up position, rock forward and back", muscles: "Core, Shoulders" }
+        ],
+        2: [
+          { name: "Classic Push Ups", reps: "12-20", description: "Perfect form push ups", muscles: "Chest, Shoulders, Triceps, Core" },
+          { name: "Wide Grip Push Ups", reps: "10-15", description: "Hands wider than shoulders", muscles: "Chest, Shoulders" },
+          { name: "Close Grip Push Ups", reps: "8-12", description: "Hands close together for triceps", muscles: "Triceps, Chest" },
+          { name: "Decline Push Ups", reps: "8-15", description: "Feet elevated", muscles: "Shoulders, Upper Chest" },
+          { name: "Dive Bombers", reps: "6-10", description: "Yoga-inspired push up variation", muscles: "Shoulders, Chest, Flexibility" }
+        ],
+        3: [
+          { name: "One-Arm Push Ups (Assisted)", reps: "3-8 each", description: "Progress toward one-arm push ups", muscles: "Full Upper Body" },
+          { name: "Handstand Push Ups (Wall)", reps: "3-8", description: "Against wall for support", muscles: "Shoulders, Triceps, Core" },
+          { name: "Dive Bombers", reps: "10-15", description: "Full range dive bombers", muscles: "Shoulders, Chest, Flexibility" },
+          { name: "Planche Progressions", reps: "3-5", description: "Work toward planche push up", muscles: "Full Upper Body, Core" },
+          { name: "Basketball Push Ups", reps: "6-12", description: "One hand on basketball", muscles: "Stabilizers, Chest" }
+        ],
+        4: [
+          { name: "One-Arm Push Ups", reps: "5-10 each", description: "Full one-arm push ups", muscles: "Full Upper Body, Core" },
+          { name: "Handstand Push Ups", reps: "8-15", description: "Freestanding or wall-assisted", muscles: "Shoulders, Triceps, Core" },
+          { name: "Planche Push Ups", reps: "1-5", description: "Ultimate push up - feet off ground", muscles: "Everything" },
+          { name: "Bouncing Push Ups", reps: "5-10", description: "Explosive push ups, hands leave ground", muscles: "Power, Chest" },
+          { name: "Archer Push Ups", reps: "3-6 each", description: "One arm straight, one bent", muscles: "Full Upper Body" }
+        ]
+      },
+      pull: {
+        1: [
+          { name: "Let Me Ins", reps: "8-15", description: "Door pull ups with feet on ground", muscles: "Back, Biceps" },
+          { name: "Let Me Ups", reps: "5-12", description: "Under table/desk pulls", muscles: "Back, Biceps" },
+          { name: "Towel Curls", reps: "8-12", description: "Bicep curls with towel resistance", muscles: "Biceps, Forearms" },
+          { name: "Door Pull Ups (Assisted)", reps: "3-8", description: "Pull ups with towel over door", muscles: "Back, Biceps" },
+          { name: "Ledge Curls", reps: "6-10", description: "Pull under counter/ledge", muscles: "Biceps, Back" }
+        ],
+        2: [
+          { name: "Pull Ups", reps: "5-12", description: "Full pull ups", muscles: "Back, Biceps" },
+          { name: "Let Me Ins", reps: "15-25", description: "Advanced door pulls", muscles: "Back, Biceps" },
+          { name: "Chin Ups", reps: "5-10", description: "Underhand grip pull ups", muscles: "Biceps, Back" },
+          { name: "Wide Grip Pull Ups", reps: "4-8", description: "Hands wide for lats", muscles: "Lats, Back" },
+          { name: "Let Me Ups (Feet Elevated)", reps: "8-15", description: "Feet on chair/surface", muscles: "Back, Biceps" }
+        ],
+        3: [
+          { name: "Pull Ups", reps: "12-20", description: "High rep pull ups", muscles: "Back, Biceps" },
+          { name: "Archer Pull Ups", reps: "3-6 each", description: "One arm straight, one pulls", muscles: "Back, Biceps" },
+          { name: "Commando Pull Ups", reps: "5-10", description: "Alternating sides over bar", muscles: "Back, Core" },
+          { name: "One-Arm Let Me Ins", reps: "5-10 each", description: "Single arm door pulls", muscles: "Back, Biceps, Core" },
+          { name: "Weighted Pull Ups", reps: "6-12", description: "With backpack/weight", muscles: "Back, Biceps" }
+        ],
+        4: [
+          { name: "One-Arm Pull Ups (Assisted)", reps: "1-5 each", description: "Progress to one-arm", muscles: "Elite Back/Biceps" },
+          { name: "Muscle Ups", reps: "3-8", description: "Pull up into dip", muscles: "Full Upper Body" },
+          { name: "Archer Pull Ups", reps: "8-12 each", description: "Full archer pull ups", muscles: "Back, Biceps" },
+          { name: "Typewriter Pull Ups", reps: "5-10", description: "Side to side at top", muscles: "Back, Biceps" },
+          { name: "One-Arm Pull Ups", reps: "1-3 each", description: "Ultimate pulling exercise", muscles: "Elite Everything" }
+        ]
+      },
+      legs: {
+        1: [
+          { name: "Squats", reps: "10-20", description: "Basic bodyweight squats", muscles: "Quads, Glutes" },
+          { name: "Lunges", reps: "8-12 each", description: "Forward lunges", muscles: "Quads, Glutes" },
+          { name: "Wall Sit", reps: "30-60 sec", description: "Back against wall, knees 90°", muscles: "Quads, Glutes" },
+          { name: "Calf Raises", reps: "15-25", description: "Rise up on toes", muscles: "Calves" },
+          { name: "Glute Bridges", reps: "10-15", description: "Hip thrusts lying down", muscles: "Glutes, Hamstrings" }
+        ],
+        2: [
+          { name: "Jump Squats", reps: "10-15", description: "Explosive squat jumps", muscles: "Power, Quads, Glutes" },
+          { name: "Bulgarian Split Squats", reps: "8-12 each", description: "Rear foot elevated", muscles: "Quads, Glutes" },
+          { name: "Side Lunges", reps: "10-15 each", description: "Lateral lunge movement", muscles: "Quads, Glutes, Adductors" },
+          { name: "Single Leg Calf Raises", reps: "12-20 each", description: "One leg at a time", muscles: "Calves" },
+          { name: "Sumo Squats", reps: "12-18", description: "Wide stance squats", muscles: "Quads, Glutes, Inner Thighs" }
+        ],
+        3: [
+          { name: "Pistol Squats (Assisted)", reps: "3-8 each", description: "One-leg squat with support", muscles: "Quads, Glutes, Balance" },
+          { name: "Shrimp Squats", reps: "3-6 each", description: "One leg behind, advanced", muscles: "Quads, Glutes, Flexibility" },
+          { name: "Jump Lunges", reps: "10-16", description: "Explosive alternating lunges", muscles: "Power, Quads, Glutes" },
+          { name: "Single Leg RDL", reps: "8-12 each", description: "Romanian deadlift one leg", muscles: "Hamstrings, Glutes, Balance" },
+          { name: "Dragon Squats", reps: "5-10 each", description: "Deep one-leg squat", muscles: "Quads, Glutes, Flexibility" }
+        ],
+        4: [
+          { name: "Pistol Squats", reps: "8-15 each", description: "Full one-leg squats", muscles: "Quads, Glutes, Balance" },
+          { name: "Shrimp Squats", reps: "5-10 each", description: "Advanced one-leg squat", muscles: "Elite Legs" },
+          { name: "Jump Pistols", reps: "3-6 each", description: "Explosive one-leg squat", muscles: "Power, Quads, Glutes" },
+          { name: "Airborne Lunges", reps: "6-12 each", description: "No hands, deep lunges", muscles: "Quads, Glutes, Balance" },
+          { name: "Hindu Squats", reps: "20-50", description: "Continuous flowing squats", muscles: "Endurance, Quads" }
+        ]
+      },
+      core: {
+        1: [
+          { name: "Plank", reps: "30-60 sec", description: "Hold plank position", muscles: "Full Core" },
+          { name: "Crunches", reps: "15-25", description: "Basic abdominal crunches", muscles: "Upper Abs" },
+          { name: "Leg Raises", reps: "10-15", description: "Lying leg raises", muscles: "Lower Abs" },
+          { name: "Dead Bug", reps: "8-12 each", description: "Lying alternate arm/leg", muscles: "Core Stability" },
+          { name: "Glute Bridges", reps: "12-20", description: "Hip bridges", muscles: "Glutes, Lower Back" }
+        ],
+        2: [
+          { name: "Mountain Climbers", reps: "20-30", description: "Alternating knee drives", muscles: "Core, Cardio" },
+          { name: "Russian Twists", reps: "20-30", description: "Seated torso twists", muscles: "Obliques" },
+          { name: "Bicycle Crunches", reps: "20-30", description: "Alternating elbow to knee", muscles: "Abs, Obliques" },
+          { name: "Side Plank", reps: "30-45 sec each", description: "Plank on side", muscles: "Obliques, Core" },
+          { name: "V-Ups", reps: "10-15", description: "Simultaneous leg/torso raise", muscles: "Full Abs" }
+        ],
+        3: [
+          { name: "L-Sit Hold", reps: "15-30 sec", description: "Legs horizontal, arms support", muscles: "Full Core, Hip Flexors" },
+          { name: "Dragon Flags", reps: "5-10", description: "Body horizontal from shoulders", muscles: "Full Core" },
+          { name: "Hanging Leg Raises", reps: "8-15", description: "Hanging from bar", muscles: "Lower Abs, Grip" },
+          { name: "Human Flag Progressions", reps: "5-15 sec", description: "Side body hold", muscles: "Full Core, Shoulders" },
+          { name: "Hollow Body Hold", reps: "30-60 sec", description: "Hollow position hold", muscles: "Full Core" }
+        ],
+        4: [
+          { name: "Human Flag", reps: "10-30 sec", description: "Full side body flag", muscles: "Elite Core" },
+          { name: "One-Arm Plank", reps: "20-45 sec", description: "Plank with one arm", muscles: "Core, Stability" },
+          { name: "Front Lever", reps: "5-20 sec", description: "Body horizontal from bar", muscles: "Full Body, Core" },
+          { name: "Planche Hold", reps: "5-15 sec", description: "Body horizontal, hands only", muscles: "Everything" },
+          { name: "One-Arm Dragon Flag", reps: "3-8", description: "Dragon flag single arm", muscles: "Elite Core" }
+        ]
+      },
+      cardio: {
+        1: [
+          { name: "Burpees", reps: "5-10", description: "Full body explosive movement", muscles: "Full Body Cardio" },
+          { name: "Jumping Jacks", reps: "20-30", description: "Classic jumping exercise", muscles: "Cardio, Coordination" },
+          { name: "High Knees", reps: "20-30", description: "Run in place, knees high", muscles: "Cardio, Hip Flexors" },
+          { name: "Mountain Climbers", reps: "15-25", description: "Fast knee drives", muscles: "Core, Cardio" },
+          { name: "Squat Jumps", reps: "8-15", description: "Jump from squat position", muscles: "Power, Cardio" }
+        ],
+        2: [
+          { name: "8-Count Bodybuilders", reps: "5-10", description: "Military conditioning classic", muscles: "Full Body" },
+          { name: "Burpee Box Jumps", reps: "6-12", description: "Burpee onto elevated surface", muscles: "Power, Full Body" },
+          { name: "Star Jumpers", reps: "10-15", description: "Explosive star position jumps", muscles: "Power, Coordination" },
+          { name: "Bear Crawls", reps: "30-60 sec", description: "Crawl on hands and feet", muscles: "Full Body Strength" },
+          { name: "Sprint Intervals", reps: "30 sec on/30 off", description: "High intensity running", muscles: "Cardio Power" }
+        ],
+        3: [
+          { name: "Tabata Burpees", reps: "20 sec on/10 off x8", description: "High intensity intervals", muscles: "Elite Cardio" },
+          { name: "Manmakers", reps: "5-10", description: "Burpee + push up + weights", muscles: "Full Body Power" },
+          { name: "Turkish Get Ups", reps: "3-6 each", description: "Complex ground to standing", muscles: "Full Body, Core" },
+          { name: "Sprawls", reps: "10-20", description: "Explosive hip drive", muscles: "Power, Conditioning" },
+          { name: "Devil's Press", reps: "6-12", description: "Burpee with overhead press", muscles: "Full Body Power" }
+        ],
+        4: [
+          { name: "Competition Burpees", reps: "10-25", description: "Perfect form, max speed", muscles: "Elite Conditioning" },
+          { name: "Muscle Up Burpees", reps: "3-8", description: "Burpee to muscle up", muscles: "Elite Full Body" },
+          { name: "One-Arm Burpees", reps: "5-10 each", description: "Single arm burpees", muscles: "Elite Power" },
+          { name: "Flying Burpees", reps: "5-12", description: "Jump forward into burpee", muscles: "Elite Power" },
+          { name: "Spartans", reps: "8-15", description: "Complex multi-movement drill", muscles: "Elite Everything" }
+        ]
+      }
+    };
+
+    function generateWorkout() {
+      const category = document.getElementById("category").value;
+      const difficulty = parseInt(document.getElementById("difficulty").value);
+      const duration = parseInt(document.getElementById("duration").value);
+      const equipment = document.getElementById("equipment").value;
+
+      let workout = [];
+      let totalTime = 0;
+
+      if (category === "full") {
+        // Full body workout - mix all categories
+        const categories = ["push", "pull", "legs", "core"];
+        categories.forEach(cat => {
+          const catExercises = exercises[cat][difficulty] || exercises[cat][1];
+          const selected = getRandomExercises(catExercises, 2);
+          workout = workout.concat(selected.map(ex => ({...ex, category: cat})));
+        });
+      } else {
+        // Specific category workout
+        const catExercises = exercises[category][difficulty] || exercises[category][1];
+        const numExercises = Math.min(duration / 3, catExercises.length);
+        workout = getRandomExercises(catExercises, numExercises).map(ex => ({...ex, category}));
+      }
+
+      displayWorkout(workout, difficulty, duration);
+    }
+
+    function getRandomExercises(exerciseList, count) {
+      const shuffled = [...exerciseList].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function displayWorkout(workout, difficulty, duration) {
+      const output = document.getElementById("output");
+      const difficultyNames = ["", "Basic", "1st Class", "Master", "Chief"];
+      
+      let html = `
+        <h2>Your Special Operations Workout</h2>
+        <div class="workout-section">
+          <h3>Mission Brief</h3>
+          <p><strong>Fitness Level:</strong> ${difficultyNames[difficulty]}</p>
+          <p><strong>Duration:</strong> ${duration} minutes</p>
+          <p><strong>Exercises:</strong> ${workout.length}</p>
+          <p><strong>Mission:</strong> Complete all exercises with military precision. Form over speed. Hooya!</p>
+        </div>
+      `;
+
+      // Group by category
+      const categories = [...new Set(workout.map(ex => ex.category))];
+      
+      categories.forEach(category => {
+        const categoryExercises = workout.filter(ex => ex.category === category);
+        const categoryNames = {
+          push: "PUSH (Chest, Shoulders, Triceps)",
+          pull: "PULL (Back, Biceps)",
+          legs: "LEGS & GLUTES",
+          core: "CORE & ABS",
+          cardio: "HIGH INTENSITY CARDIO"
+        };
+
+        html += `
+          <div class="workout-section">
+            <h3>${categoryNames[category] || category.toUpperCase()}</h3>
+        `;
+
+        categoryExercises.forEach(exercise => {
+          html += `
+            <div class="exercise-item">
+              <div class="exercise-name">${exercise.name}</div>
+              <div class="exercise-details">
+                <strong>Reps/Duration:</strong> ${exercise.reps}<br>
+                <strong>Target:</strong> ${exercise.muscles}<br>
+                <strong>Technique:</strong> ${exercise.description}
+              </div>
+              <span class="difficulty diff-${difficulty}">Level ${difficulty}</span>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      // Add workout structure
+      html += `
+        <div class="workout-section">
+          <h3>Workout Structure</h3>
+          <p><strong>Warm-up:</strong> 3-5 minutes light movement and stretching</p>
+          <p><strong>Work Period:</strong> ${duration - 8} minutes of exercises</p>
+          <p><strong>Cool-down:</strong> 3-5 minutes stretching and breathing</p>
+          <p><strong>Rest Between Exercises:</strong> 30-90 seconds (adjust based on intensity)</p>
+        </div>
+      `;
+
+      // Add tips
+      html += `
+        <div class="tips">
+          <h3>Special Operations Training Tips</h3>
+          <ul>
+            <li><strong>Quality over quantity:</strong> Perfect form is non-negotiable</li>
+            <li><strong>Control the negative:</strong> Slow, controlled lowering builds real strength</li>
+            <li><strong>Breathe properly:</strong> Exhale on exertion, inhale on the return</li>
+            <li><strong>Progressive overload:</strong> Make exercises harder as you improve</li>
+            <li><strong>Consistency wins:</strong> Regular training beats sporadic intensity</li>
+            <li><strong>Listen to your body:</strong> Train hard, but train smart</li>
+          </ul>
+        </div>
+      `;
+
+      output.innerHTML = html;
+    }
+
+    // Generate initial workout
+    window.onload = function() {
+      generateWorkout();
+    };
+  </script>
+</body>
+</html>
