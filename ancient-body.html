@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ultimate Körpergewicht Workout Generator</title>
+  <style>
+    body { 
+      font-family: 'Arial', sans-serif; 
+      padding: 20px; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .subtitle {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .control-group {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.9);
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button { 
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+    .output {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 25px;
+      margin-top: 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .workout-section {
+      margin-bottom: 25px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid #feca57;
+    }
+    .exercise-item {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border-left: 3px solid #ff6b6b;
+    }
+    .exercise-name {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #feca57;
+      margin-bottom: 5px;
+    }
+    .exercise-details {
+      font-size: 0.95em;
+      line-height: 1.4;
+      opacity: 0.9;
+    }
+    .difficulty {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+    .diff-1 { background: #2ecc71; }
+    .diff-2 { background: #f39c12; }
+    .diff-3 { background: #e74c3c; }
+    .diff-4 { background: #8e44ad; }
+    .tips {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border-left: 4px solid #3498db;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ultimate Körpergewicht Workout Generator</h1>
+    <p class="subtitle">Trainiere wie antike Krieger</p>
+    
+    <div class="controls">
+      <div class="control-group">
+        <label for="category">Workout Fokus:</label>
+        <select id="category">
+          <option value="full">Ganzkörper Workout</option>
+          <option value="push">Drück (Brust, Schultern, Trizeps)</option>
+          <option value="pull">Zieh (Rücken, Bizeps)</option>
+          <option value="legs">Beine & Po</option>
+          <option value="core">Rumpf & Bauch</option>
+          <option value="cardio">Hochintensives Cardio</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="difficulty">Fitness Level:</label>
+        <select id="difficulty">
+          <option value="1">Grundlagen (Anfänger)</option>
+          <option value="2">1. Klasse (Fortgeschritten)</option>
+          <option value="3">Meister (Profi)</option>
+          <option value="4">Chef (Elite)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="duration">Workout Dauer:</label>
+        <select id="duration">
+          <option value="15">Schnell (15 Minuten)</option>
+          <option value="20">Standard (20 Minuten)</option>
+          <option value="30">Erweitert (30 Minuten)</option>
+          <option value="45">Marathon (45 Minuten)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="equipment">Verfügbare Ausrüstung:</label>
+        <select id="equipment">
+          <option value="none">Nur dein Körper</option>
+          <option value="basic">Grundausstattung (Handtuch, Tür)</option>
+          <option value="household">Haushaltsgegenstände</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="generateWorkout()">Antikes Körper Workout Erstellen</button>
+
+    <div id="output"></div>
+  </div>
+
+  <script>
+    const exercises = {
+      push: {
+        1: [
+          { name: "Wand Liegestütze", reps: "10-15", description: "Hände gegen die Wand, reinlehnen und zurückdrücken", muscles: "Brust, Schultern, Trizeps" },
+          { name: "Erhöhte Liegestütze", reps: "8-12", description: "Hände erhöht auf Stuhl/Couch", muscles: "Brust, Schultern, Trizeps" },
+          { name: "Klassische Liegestütze", reps: "5-10", description: "Standard Liegestütze mit perfekter Form", muscles: "Brust, Schultern, Trizeps, Rumpf" },
+          { name: "Bärengang", reps: "30 Sekunden", description: "Krabbeln auf Händen und Füßen", muscles: "Schultern, Rumpf" },
+          { name: "Schaukelstühle", reps: "8-12", description: "Liegestützposition, vor und zurück wippen", muscles: "Rumpf, Schultern" }
+        ],
+        2: [
+          { name: "Klassische Liegestütze", reps: "12-20", description: "Perfekte Form Liegestütze", muscles: "Brust, Schultern, Trizeps, Rumpf" },
+          { name: "Breite Liegestütze", reps: "10-15", description: "Hände breiter als Schultern", muscles: "Brust, Schultern" },
+          { name: "Enge Liegestütze", reps: "8-12", description: "Hände eng zusammen für Trizeps", muscles: "Trizeps, Brust" },
+          { name: "Absteigende Liegestütze", reps: "8-15", description: "Füße erhöht", muscles: "Schultern, Obere Brust" },
+          { name: "Sturzflug", reps: "6-10", description: "Yoga-inspirierte Liegestützvariante", muscles: "Schultern, Brust, Flexibilität" }
+        ],
+        3: [
+          { name: "Einarmige Liegestütze (Unterstützt)", reps: "3-8 je Seite", description: "Fortschritt zu einarmigen Liegestützen", muscles: "Ganzer Oberkörper" },
+          { name: "Handstand Liegestütze (Wand)", reps: "3-8", description: "An der Wand für Unterstützung", muscles: "Schultern, Trizeps, Rumpf" },
+          { name: "Sturzflug", reps: "10-15", description: "Vollständiger Sturzflug", muscles: "Schultern, Brust, Flexibilität" },
+          { name: "Planche Progression", reps: "3-5", description: "Arbeit Richtung Planche Liegestütze", muscles: "Ganzer Oberkörper, Rumpf" },
+          { name: "Basketball Liegestütze", reps: "6-12", description: "Eine Hand auf Basketball", muscles: "Stabilisatoren, Brust" }
+        ],
+        4: [
+          { name: "Einarmige Liegestütze", reps: "5-10 je Seite", description: "Vollständige einarmige Liegestütze", muscles: "Ganzer Oberkörper, Rumpf" },
+          { name: "Handstand Liegestütze", reps: "8-15", description: "Freistehend oder wandunterstützt", muscles: "Schultern, Trizeps, Rumpf" },
+          { name: "Planche Liegestütze", reps: "1-5", description: "Ultimate Liegestütze - Füße vom Boden", muscles: "Alles" },
+          { name: "Springende Liegestütze", reps: "5-10", description: "Explosive Liegestütze, Hände verlassen Boden", muscles: "Kraft, Brust" },
+          { name: "Bogenschützen Liegestütze", reps: "3-6 je Seite", description: "Ein Arm gerade, einer gebeugt", muscles: "Ganzer Oberkörper" }
+        ]
+      },
+      pull: {
+        1: [
+          { name: "Lass mich rein", reps: "8-15", description: "Tür Klimmzüge mit Füßen am Boden", muscles: "Rücken, Bizeps" },
+          { name: "Lass mich hoch", reps: "5-12", description: "Unter Tisch/Schreibtisch ziehen", muscles: "Rücken, Bizeps" },
+          { name: "Handtuch Curls", reps: "8-12", description: "Bizeps Curls mit Handtuchwiderstand", muscles: "Bizeps, Unterarme" },
+          { name: "Tür Klimmzüge (Unterstützt)", reps: "3-8", description: "Klimmzüge mit Handtuch über Tür", muscles: "Rücken, Bizeps" },
+          { name: "Kanten Curls", reps: "6-10", description: "Ziehen unter Theke/Kante", muscles: "Bizeps, Rücken" }
+        ],
+        2: [
+          { name: "Klimmzüge", reps: "5-12", description: "Vollständige Klimmzüge", muscles: "Rücken, Bizeps" },
+          { name: "Lass mich rein", reps: "15-25", description: "Fortgeschrittene Türzüge", muscles: "Rücken, Bizeps" },
+          { name: "Chin Ups", reps: "5-10", description: "Unterhandgriff Klimmzüge", muscles: "Bizeps, Rücken" },
+          { name: "Breite Klimmzüge", reps: "4-8", description: "Hände breit für Latissimus", muscles: "Latissimus, Rücken" },
+          { name: "Lass mich hoch (Füße erhöht)", reps: "8-15", description: "Füße auf Stuhl/Oberfläche", muscles: "Rücken, Bizeps" }
+        ],
+        3: [
+          { name: "Klimmzüge", reps: "12-20", description: "Hohe Wiederholungszahl Klimmzüge", muscles: "Rücken, Bizeps" },
+          { name: "Bogenschützen Klimmzüge", reps: "3-6 je Seite", description: "Ein Arm gerade, einer zieht", muscles: "Rücken, Bizeps" },
+          { name: "Kommando Klimmzüge", reps: "5-10", description: "Abwechselnde Seiten über Stange", muscles: "Rücken, Rumpf" },
+          { name: "Einarmige Lass mich rein", reps: "5-10 je Seite", description: "Einzelner Arm Türzüge", muscles: "Rücken, Bizeps, Rumpf" },
+          { name: "Gewichtete Klimmzüge", reps: "6-12", description: "Mit Rucksack/Gewicht", muscles: "Rücken, Bizeps" }
+        ],
+        4: [
+          { name: "Einarmige Klimmzüge (Unterstützt)", reps: "1-5 je Seite", description: "Fortschritt zu einarmig", muscles: "Elite Rücken/Bizeps" },
+          { name: "Muscle Ups", reps: "3-8", description: "Klimmzug in Dip", muscles: "Ganzer Oberkörper" },
+          { name: "Bogenschützen Klimmzüge", reps: "8-12 je Seite", description: "Vollständige Bogenschützen Klimmzüge", muscles: "Rücken, Bizeps" },
+          { name: "Schreibmaschinen Klimmzüge", reps: "5-10", description: "Seite zu Seite an der Spitze", muscles: "Rücken, Bizeps" },
+          { name: "Einarmige Klimmzüge", reps: "1-3 je Seite", description: "Ultimate Zugübung", muscles: "Elite Alles" }
+        ]
+      },
+      legs: {
+        1: [
+          { name: "Kniebeugen", reps: "10-20", description: "Grundlegende Körpergewicht Kniebeugen", muscles: "Quadrizeps, Po" },
+          { name: "Ausfallschritte", reps: "8-12 je Seite", description: "Vorwärts Ausfallschritte", muscles: "Quadrizeps, Po" },
+          { name: "Wandsitz", reps: "30-60 Sek", description: "Rücken an Wand, Knie 90°", muscles: "Quadrizeps, Po" },
+          { name: "Wadenheben", reps: "15-25", description: "Auf Zehenspitzen heben", muscles: "Waden" },
+          { name: "Gesäßbrücken", reps: "10-15", description: "Hüftstöße im Liegen", muscles: "Po, Beinbeuger" }
+        ],
+        2: [
+          { name: "Sprungkniebeugen", reps: "10-15", description: "Explosive Kniebeugsprünge", muscles: "Kraft, Quadrizeps, Po" },
+          { name: "Bulgarische Split Kniebeugen", reps: "8-12 je Seite", description: "Hinterer Fuß erhöht", muscles: "Quadrizeps, Po" },
+          { name: "Seitliche Ausfallschritte", reps: "10-15 je Seite", description: "Seitliche Ausfallbewegung", muscles: "Quadrizeps, Po, Adduktoren" },
+          { name: "Einbeiniges Wadenheben", reps: "12-20 je Seite", description: "Ein Bein zur Zeit", muscles: "Waden" },
+          { name: "Sumo Kniebeugen", reps: "12-18", description: "Breite Haltung Kniebeugen", muscles: "Quadrizeps, Po, Innere Oberschenkel" }
+        ],
+        3: [
+          { name: "Pistolen Kniebeugen (Unterstützt)", reps: "3-8 je Seite", description: "Einbein Kniebeuge mit Unterstützung", muscles: "Quadrizeps, Po, Balance" },
+          { name: "Garnelen Kniebeugen", reps: "3-6 je Seite", description: "Ein Bein hinten, fortgeschritten", muscles: "Quadrizeps, Po, Flexibilität" },
+          { name: "Sprungausfallschritte", reps: "10-16", description: "Explosive wechselnde Ausfallschritte", muscles: "Kraft, Quadrizeps, Po" },
+          { name: "Einbeiniges RDL", reps: "8-12 je Seite", description: "Rumänisches Kreuzheben ein Bein", muscles: "Beinbeuger, Po, Balance" },
+          { name: "Drachen Kniebeugen", reps: "5-10 je Seite", description: "Tiefe einbeinige Kniebeuge", muscles: "Quadrizeps, Po, Flexibilität" }
+        ],
+        4: [
+          { name: "Pistolen Kniebeugen", reps: "8-15 je Seite", description: "Vollständige einbeinige Kniebeugen", muscles: "Quadrizeps, Po, Balance" },
+          { name: "Garnelen Kniebeugen", reps: "5-10 je Seite", description: "Fortgeschrittene einbeinige Kniebeuge", muscles: "Elite Beine" },
+          { name: "Sprung Pistolen", reps: "3-6 je Seite", description: "Explosive einbeinige Kniebeuge", muscles: "Kraft, Quadrizeps, Po" },
+          { name: "Luftausfallschritte", reps: "6-12 je Seite", description: "Keine Hände, tiefe Ausfallschritte", muscles: "Quadrizeps, Po, Balance" },
+          { name: "Hindu Kniebeugen", reps: "20-50", description: "Kontinuierliche fließende Kniebeugen", muscles: "Ausdauer, Quadrizeps" }
+        ]
+      },
+      core: {
+        1: [
+          { name: "Plank", reps: "30-60 Sek", description: "Plank Position halten", muscles: "Ganzer Rumpf" },
+          { name: "Crunches", reps: "15-25", description: "Grundlegende Bauchcrunches", muscles: "Obere Bauchmuskeln" },
+          { name: "Beinheben", reps: "10-15", description: "Liegendes Beinheben", muscles: "Untere Bauchmuskeln" },
+          { name: "Toter Käfer", reps: "8-12 je Seite", description: "Liegend wechselnder Arm/Bein", muscles: "Rumpfstabilität" },
+          { name: "Gesäßbrücken", reps: "12-20", description: "Hüftbrücken", muscles: "Po, Unterer Rücken" }
+        ],
+        2: [
+          { name: "Bergsteiger", reps: "20-30", description: "Wechselnde Knieantriebe", muscles: "Rumpf, Cardio" },
+          { name: "Russische Twists", reps: "20-30", description: "Sitzende Rumpfdrehungen", muscles: "Schräge Bauchmuskeln" },
+          { name: "Fahrrad Crunches", reps: "20-30", description: "Wechselnder Ellbogen zum Knie", muscles: "Bauchmuskeln, Schräge" },
+          { name: "Seitlicher Plank", reps: "30-45 Sek je Seite", description: "Plank auf der Seite", muscles: "Schräge, Rumpf" },
+          { name: "V-Ups", reps: "10-15", description: "Gleichzeitiges Bein/Rumpfheben", muscles: "Ganze Bauchmuskeln" }
+        ],
+        3: [
+          { name: "L-Sit Halten", reps: "15-30 Sek", description: "Beine horizontal, Arme stützen", muscles: "Ganzer Rumpf, Hüftbeuger" },
+          { name: "Drachenflaggen", reps: "5-10", description: "Körper horizontal von Schultern", muscles: "Ganzer Rumpf" },
+          { name: "Hängendes Beinheben", reps: "8-15", description: "Hängend an Stange", muscles: "Untere Bauchmuskeln, Griff" },
+          { name: "Menschliche Flagge Progression", reps: "5-15 Sek", description: "Seitlicher Körperhalten", muscles: "Ganzer Rumpf, Schultern" },
+          { name: "Hohler Körper Halten", reps: "30-60 Sek", description: "Hohle Position halten", muscles: "Ganzer Rumpf" }
+        ],
+        4: [
+          { name: "Menschliche Flagge", reps: "10-30 Sek", description: "Vollständige seitliche Körperflagge", muscles: "Elite Rumpf" },
+          { name: "Einarmiger Plank", reps: "20-45 Sek", description: "Plank mit einem Arm", muscles: "Rumpf, Stabilität" },
+          { name: "Front Lever", reps: "5-20 Sek", description: "Körper horizontal von Stange", muscles: "Ganzkörper, Rumpf" },
+          { name: "Planche Halten", reps: "5-15 Sek", description: "Körper horizontal, nur Hände", muscles: "Alles" },
+          { name: "Einarmige Drachenflagge", reps: "3-8", description: "Drachenflagge einzelner Arm", muscles: "Elite Rumpf" }
+        ]
+      },
+      cardio: {
+        1: [
+          { name: "Burpees", reps: "5-10", description: "Ganzkörper explosive Bewegung", muscles: "Ganzkörper Cardio" },
+          { name: "Hampelmänner", reps: "20-30", description: "Klassische Sprungübung", muscles: "Cardio, Koordination" },
+          { name: "Hohe Knie", reps: "20-30", description: "Auf der Stelle laufen, Knie hoch", muscles: "Cardio, Hüftbeuger" },
+          { name: "Bergsteiger", reps: "15-25", description: "Schnelle Knieantriebe", muscles: "Rumpf, Cardio" },
+          { name: "Kniebeugsprünge", reps: "8-15", description: "Sprung aus Kniebeugposition", muscles: "Kraft, Cardio" }
+        ],
+        2: [
+          { name: "8-Count Bodybuilders", reps: "5-10", description: "Militär Konditions Klassiker", muscles: "Ganzkörper" },
+          { name: "Burpee Box Sprünge", reps: "6-12", description: "Burpee auf erhöhte Oberfläche", muscles: "Kraft, Ganzkörper" },
+          { name: "Stern Springer", reps: "10-15", description: "Explosive Sternposition Sprünge", muscles: "Kraft, Koordination" },
+          { name: "Bärenkriechen", reps: "30-60 Sek", description: "Krabbeln auf Händen und Füßen", muscles: "Ganzkörper Kraft" },
+          { name: "Sprint Intervalle", reps: "30 Sek an/30 aus", description: "Hochintensives Laufen", muscles: "Cardio Kraft" }
+        ],
+        3: [
+          { name: "Tabata Burpees", reps: "20 Sek an/10 aus x8", description: "Hochintensitäts Intervalle", muscles: "Elite Cardio" },
+          { name: "Manmakers", reps: "5-10", description: "Burpee + Liegestütze + Gewichte", muscles: "Ganzkörper Kraft" },
+          { name: "Türkisches Aufstehen", reps: "3-6 je Seite", description: "Komplexer Boden zu Stehen", muscles: "Ganzkörper, Rumpf" },
+          { name: "Sprawls", reps: "10-20", description: "Explosiver Hüftantrieb", muscles: "Kraft, Kondition" },
+          { name: "Teufels Presse", reps: "6-12", description: "Burpee mit Überkopfpresse", muscles: "Ganzkörper Kraft" }
+        ],
+        4: [
+          { name: "Wettkampf Burpees", reps: "10-25", description: "Perfekte Form, maximale Geschwindigkeit", muscles: "Elite Kondition" },
+          { name: "Muscle Up Burpees", reps: "3-8", description: "Burpee zu Muscle Up", muscles: "Elite Ganzkörper" },
+          { name: "Einarmige Burpees", reps: "5-10 je Seite", description: "Einzelner Arm Burpees", muscles: "Elite Kraft" },
+          { name: "Fliegende Burpees", reps: "5-12", description: "Vorwärts springen in Burpee", muscles: "Elite Kraft" },
+          { name: "Spartaner", reps: "8-15", description: "Komplexer Multi-Bewegungs Drill", muscles: "Elite Alles" }
+        ]
+      }
+    };
+
+    function generateWorkout() {
+      const category = document.getElementById("category").value;
+      const difficulty = parseInt(document.getElementById("difficulty").value);
+      const duration = parseInt(document.getElementById("duration").value);
+      const equipment = document.getElementById("equipment").value;
+
+      let workout = [];
+      let totalTime = 0;
+
+      if (category === "full") {
+        // Ganzkörper Workout - alle Kategorien mischen
+        const categories = ["push", "pull", "legs", "core"];
+        categories.forEach(cat => {
+          const catExercises = exercises[cat][difficulty] || exercises[cat][1];
+          const selected = getRandomExercises(catExercises, 2);
+          workout = workout.concat(selected.map(ex => ({...ex, category: cat})));
+        });
+      } else {
+        // Spezifisches Kategorie Workout
+        const catExercises = exercises[category][difficulty] || exercises[category][1];
+        const numExercises = Math.min(duration / 3, catExercises.length);
+        workout = getRandomExercises(catExercises, numExercises).map(ex => ({...ex, category}));
+      }
+
+      displayWorkout(workout, difficulty, duration);
+    }
+
+    function getRandomExercises(exerciseList, count) {
+      const shuffled = [...exerciseList].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function displayWorkout(workout, difficulty, duration) {
+      const output = document.getElementById("output");
+      const difficultyNames = ["", "Grundlagen", "1. Klasse", "Meister", "Chef"];
+      
+      let html = `
+        <h2>Dein Spezialeinheiten Workout</h2>
+        <div class="workout-section">
+          <h3>Missions Briefing</h3>
+          <p><strong>Fitness Level:</strong> ${difficultyNames[difficulty]}</p>
+          <p><strong>Dauer:</strong> ${duration} Minuten</p>
+          <p><strong>Übungen:</strong> ${workout.length}</p>
+          <p><strong>Mission:</strong> Führe alle Übungen mit militärischer Präzision aus. Form vor Geschwindigkeit. Hooya!</p>
+        </div>
+      `;
+
+      // Nach Kategorie gruppieren
+      const categories = [...new Set(workout.map(ex => ex.category))];
+      
+      categories.forEach(category => {
+        const categoryExercises = workout.filter(ex => ex.category === category);
+        const categoryNames = {
+          push: "DRÜCK (Brust, Schultern, Trizeps)",
+          pull: "ZIEH (Rücken, Bizeps)",
+          legs: "BEINE & PO",
+          core: "RUMPF & BAUCH",
+          cardio: "HOCHINTENSIVES CARDIO"
+        };
+
+        html += `
+          <div class="workout-section">
+            <h3>${categoryNames[category] || category.toUpperCase()}</h3>
+        `;
+
+        categoryExercises.forEach(exercise => {
+          html += `
+            <div class="exercise-item">
+              <div class="exercise-name">${exercise.name}</div>
+              <div class="exercise-details">
+                <strong>Wdh./Dauer:</strong> ${exercise.reps}<br>
+                <strong>Zielmuskel:</strong> ${exercise.muscles}<br>
+                <strong>Technik:</strong> ${exercise.description}
+              </div>
+              <span class="difficulty diff-${difficulty}">Level ${difficulty}</span>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      });
+
+      // Workout Struktur hinzufügen
+      html += `
+        <div class="workout-section">
+          <h3>Workout Struktur</h3>
+          <p><strong>Aufwärmen:</strong> 3-5 Minuten leichte Bewegung und Dehnung</p>
+          <p><strong>Arbeitsphase:</strong> ${duration - 8} Minuten Übungen</p>
+          <p><strong>Abkühlen:</strong> 3-5 Minuten Dehnung und Atmung</p>
+          <p><strong>Pause zwischen Übungen:</strong> 30-90 Sekunden (je nach Intensität anpassen)</p>
+        </div>
+      `;
+
+      // Tipps hinzufügen
+      html += `
+        <div class="tips">
+          <h3>Spezialeinheiten Trainings Tipps</h3>
+          <ul>
+            <li><strong>Qualität vor Quantität:</strong> Perfekte Form ist nicht verhandelbar</li>
+            <li><strong>Kontrolliere die Negative:</strong> Langsames, kontrolliertes Senken baut echte Kraft auf</li>
+            <li><strong>Richtig atmen:</strong> Ausatmen bei Anstrengung, Einatmen bei Rückkehr</li>
+            <li><strong>Progressive Überlastung:</strong> Mache Übungen schwerer, wenn du dich verbesserst</li>
+            <li><strong>Konstanz gewinnt:</strong> Regelmäßiges Training schlägt sporadische Intensität</li>
+            <li><strong>Höre auf deinen Körper:</strong> Trainiere hart, aber trainiere klug</li>
+          </ul>
+        </div>
+      `;
+
+      output.innerHTML = html;
+    }
+
+    // Initiiales Workout generieren
+    window.onload = function() {
+      generateWorkout();
+    };
+  </script>
+</body>
+</html>
